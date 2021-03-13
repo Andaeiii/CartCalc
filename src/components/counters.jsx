@@ -15,18 +15,66 @@ class Counters extends Component {
 
     //to delete... 
     handleDelete = (counterId) => {
-        console.log('Event Handler Called...', counterId)
+        //console.log('Event Handler Called...', counterId)
+
+        const remainderCounters = this.state.counters.filter(c => c.id !== counterId);
+        this.setState({ counters: remainderCounters });
     }
 
+    handleReset = () => {
+        const counters = this.state.counters.map(c => {
+            c.value = 0;
+            return c;
+        });
+
+        this.setState({ counters: counters });
+    }
+
+    //when an object is declared like this ---  ({counter}) = ({counter: counter}) //key and variable name are the same... 
+
+
+    /*
+ 
+         map(counter => 
+             <Counter
+                 key={counter.id}
+                 selectedId={true}
+                 onDelete={this.handleDelete}
+                 id={counter.id}
+                 value={counter.value}
+               />
+           )
+ 
+    */
 
     render() {
         return (
             <div>
+
+                <button
+                    className="btn.btn-primary btn-sm m-3 p-8"
+                    onClick={this.handleReset}>
+                    reset
+                </button>
+
+
                 {
                     this.state.counters.map(c =>
-                        <Counter key={c.id} value={c.value} selected={true} onDelete={this.handleDelete} id={c.id} />
+
+                        <Counter
+                            key={c.id}
+                            selected={true}
+
+                            onDelete={this.handleDelete}
+                            id={c.id}
+                            value={c.value}
+
+                        />
+
+
+
                         /* { <h4>Counter #{c.id} </h4> }
-                     </Counter>*/
+                    </Counter>*/
                     )
                 }
 
