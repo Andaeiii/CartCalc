@@ -12,6 +12,15 @@ class Counters extends Component {
     }
 
 
+    handleIncrement = (counter) => {
+        //clone the array..
+        const counters = [...this.state.counters];
+        const index = counters.indexOf(counter);    //get the position of that counter... 
+        counters[index] = { ...counter }; //copy the counter from the parameter sent... 
+        counters[index].value++;
+        this.setState({ counters })
+    }
+
 
     //to delete... 
     handleDelete = (counterId) => {
@@ -64,10 +73,11 @@ class Counters extends Component {
                         <Counter
                             key={c.id}
                             selected={true}
-
+                            onIncrement={this.handleIncrement}
                             onDelete={this.handleDelete}
                             id={c.id}
                             value={c.value}
+                            counter={c}
 
                         />
 
