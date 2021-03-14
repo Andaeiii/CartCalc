@@ -16,38 +16,13 @@ class App extends Component {
   }
 
 
-  handleIncrement = (counter) => {
-    //clone the array..
-    const counters = [...this.state.counters];
-    const index = counters.indexOf(counter);    //get the position of that counter... 
-    counters[index] = { ...counter }; //copy the counter from the parameter sent... 
-    counters[index].value++;
-    this.setState({ counters })
-  }
 
-
-  //to delete... 
-  handleDelete = (counterId) => {
-    //console.log('Event Handler Called...', counterId)
-
-    const remainderCounters = this.state.counters.filter(c => c.id !== counterId);
-    this.setState({ counters: remainderCounters });
-  }
-
-  handleReset = () => {
-    const counters = this.state.counters.map(c => {
-      c.value = 0;
-      return c;
-    });
-
-    this.setState({ counters: counters });
-  }
 
   render() {
 
     return (
       <>
-        <NavBar />
+        <NavBar totalCounters={this.state.counters.filter(c => c.value > 0).length} />
         <main className="container">
 
           <Counters
